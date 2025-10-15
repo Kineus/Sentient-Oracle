@@ -21,6 +21,7 @@ A sophisticated Discord bot that provides AI-powered cryptocurrency insights usi
 | `/alert set <symbol> <price>` | Set price alert            | `/alert set eth 3000` |
 | `/alert list`                 | List your alerts           | `/alert list`         |
 | `/alert remove <symbol>`      | Remove an alert            | `/alert remove btc`   |
+| `/ta`                         | Get RSI and MACD analysis  | `/ta btc`             |
 | `/dailyreport`                | Get AI daily market report | `/dailyreport`        |
 
 ## 🛠️ Installation

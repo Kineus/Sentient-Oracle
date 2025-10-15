@@ -192,6 +192,62 @@ class EmbedUtils {
     return embed
   }
 
+  static createTAEmbed({
+    symbol,
+    timeframe = '1h',
+    price,
+    rsiValue,
+    macd,
+    signal,
+    histogram,
+    rsiText,
+    macdText,
+    overall,
+  }) {
+    const sentimentColor =
+      overall === 'Bullish'
+        ? this.getColor('success')
+        : overall === 'Bearish'
+        ? this.getColor('error')
+        : this.getColor('info')
+
+    const emoji = overall === 'Bullish' ? '🐂' : overall === 'Bearish' ? '🐻' : '🌀'
+
+    const embed = new EmbedBuilder()
+      .setColor(sentimentColor)
+      .setTitle(`${emoji} Technical Analysis — ${symbol.toUpperCase()}USDT (${timeframe})`)
+      .setTimestamp()
+      .setFooter({ text: 'Sentient Crypto Oracle • Technical Analysis' })
+
+    embed.addFields(
+      {
+        name: '💵 Price',
+        value: price != null ? `$${price.toLocaleString()}` : 'N/A',
+        inline: true,
+      },
+      {
+        name: '📈 RSI (14)',
+        value: `${rsiValue?.toFixed(2) ?? 'N/A'}\n${rsiText || '—'}`,
+        inline: true,
+      },
+      {
+        name: '📉 MACD (12, 26, 9)',
+        value:
+          macd != null && signal != null && histogram != null
+            ? `MACD: ${macd.toFixed(4)}\nSignal: ${signal.toFixed(4)}\nHist: ${histogram.toFixed(4)}`
+            : 'N/A',
+        inline: true,
+      }
+    )
+
+    embed.addFields({
+      name: '🧭 Sentiment',
+      value: `**${overall}** (${macdText || 'Neutral momentum'})`,
+    })
+
+    return embed
+  }
+
   static createErrorEmbed(message) {
     return new EmbedBuilder()
       .setColor(this.getColor('error'))
