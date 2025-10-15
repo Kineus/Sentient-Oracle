@@ -95,7 +95,7 @@ module.exports = {
         })
       }
 
-      const closePrices = klines.map((k) => parseFloat(k[4])) // close price at index 4
+      const closePrices = klines.map((k) => parseFloat(k[4]))
       const lastClose = closePrices[closePrices.length - 1]
 
       const { latestRSI, latestMACD } = computeIndicators(closePrices)
